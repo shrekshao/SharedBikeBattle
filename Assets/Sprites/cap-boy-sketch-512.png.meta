@@ -1,0 +1,246 @@
+fileFormatVersion: 2
+guid: 30ef18431d8fcb547abdfc2cfbacb8d9
+timeCreated: 1497590246
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: head
+    21300002: right-upper-arm
+    21300004: left-upper-arm
+    21300006: weapon
+    21300008: right-fore-arm
+    21300010: left-fore-arm
+    21300012: body
+    21300014: right-leg
+    21300016: left-leg
+    21300018: right-foot
+    21300020: left-foot
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: head
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 289
+        width: 248
+        height: 223
+      alignment: 9
+      pivot: {x: 0.5944578, y: 0.06829711}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: right-upper-arm
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 384
+        width: 62
+        height: 91
+      alignment: 9
+      pivot: {x: 0.6418915, y: 0.7739077}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: left-upper-arm
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 390
+        width: 79
+        height: 79
+      alignment: 9
+      pivot: {x: 0.29584438, y: 0.75983477}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: weapon
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 35
+        width: 73
+        height: 435
+      alignment: 9
+      pivot: {x: 0.54092574, y: 0.17986628}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: right-fore-arm
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 285
+        width: 102
+        height: 58
+      alignment: 9
+      pivot: {x: 0.21250796, y: 0.7022363}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: left-fore-arm
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 315
+        width: 102
+        height: 58
+      alignment: 9
+      pivot: {x: 0.21250856, y: 0.7275154}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: body
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 150
+        width: 128
+        height: 133
+      alignment: 9
+      pivot: {x: 0.5343644, y: 0.14722827}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: right-leg
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 164
+        width: 79
+        height: 107
+      alignment: 9
+      pivot: {x: 0.5742385, y: 0.7740579}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: left-leg
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 154
+        width: 79
+        height: 107
+      alignment: 9
+      pivot: {x: 0.564642, y: 0.8054491}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: right-foot
+      rect:
+        serializedVersion: 2
+        x: 1.9087048
+        y: 13
+        width: 91.743904
+        height: 124
+      alignment: 9
+      pivot: {x: 0.50784075, y: 0.8557895}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: left-foot
+      rect:
+        serializedVersion: 2
+        x: 91.1635
+        y: 11.817438
+        width: 91.927795
+        height: 128.18259
+      alignment: 9
+      pivot: {x: 0.49317512, y: 0.84802955}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    outline: []
+  spritePackingTag: 
+  userData: 98146074017268
+  assetBundleName: 
+  assetBundleVariant: 
