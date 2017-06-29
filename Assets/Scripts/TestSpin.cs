@@ -11,6 +11,8 @@ public class TestSpin : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.Rotate(0f, 0f, -135.0f * Time.deltaTime);
+        //transform.RotateAroundLocal(Vector3.forward, -135.0f * Time.deltaTime);
+
+        transform.Rotate(Vector3.forward, -135.0f * Time.deltaTime, Space.Self);
 	}
 }
