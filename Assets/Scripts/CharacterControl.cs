@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// This script is temp test for riding bike
 public class CharacterControl : MonoBehaviour {
 
     [SerializeField]
