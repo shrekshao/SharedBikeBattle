@@ -31,10 +31,15 @@ public class Bike : MonoBehaviour {
         m_rigidBody = GetComponent<Rigidbody>();
     }
 
-    //// Update is called once per frame
-    //void Update () {
-
-    //}
+    // Update is called once per frame
+    void Update()
+    {
+        Vector3 bikeVelocity = m_rigidBody.velocity;
+        float r = bikeVelocity.x * 60f * Time.deltaTime;
+        wheelF.transform.Rotate(Vector3.back, r, Space.Self);
+        wheelB.transform.Rotate(Vector3.back, r, Space.Self);
+        paddle.transform.Rotate(Vector3.back, r, Space.Self);
+    }
 
     public void Ride(float hacc, float vacc)
     {
@@ -56,9 +61,6 @@ public class Bike : MonoBehaviour {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * Mathf.Sign(bikeVelocity.x), transform.localScale.y, transform.localScale.z);
         }
 
-        float r = bikeVelocity.x * 60f * Time.deltaTime;
-        wheelF.transform.Rotate(Vector3.back, r, Space.Self);
-        wheelB.transform.Rotate(Vector3.back, r, Space.Self);
-        paddle.transform.Rotate(Vector3.back, r, Space.Self);
+        
     }
 }

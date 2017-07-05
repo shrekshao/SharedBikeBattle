@@ -16,6 +16,9 @@ public class Character : MonoBehaviour {
     public Anima2D.Bone2D Rfoot;
     public Anima2D.Bone2D Lhand;
 
+
+    private float lastGetOnBikeTime = 0f;
+
     // temp for bike
     float maxSpeedHorizontal = 10f;
     float maxSpeedVertical = 3f;
@@ -56,7 +59,20 @@ public class Character : MonoBehaviour {
         {
             // riding
 
-            bike.Ride(hacc, vacc * 0.3f);
+            if (Input.GetKeyUp(KeyCode.Z))
+            {
+                if (lastGetOnBikeTime + 0.2f < Time.time)
+                {
+                    GetOffBike();
+                }
+                
+            }
+            else
+            {
+                bike.Ride(hacc, vacc * 0.3f);
+            }
+
+            
         }
 
         
@@ -70,26 +86,55 @@ public class Character : MonoBehaviour {
         {
             if(Input.GetKeyUp(KeyCode.Z))
             {
-                Debug.Log("ride bike");
+                //Debug.Log("ride bike");
 
-                Bike bike = c.gameObject.GetComponent<Bike>();
-                m_sortingGroup.enabled = false;
-                transform.parent = c.transform;
-                transform.localPosition = bike.sitPivot.localPosition;
-                bike.Lfoot.enabled = true;
-                bike.Lfoot.target = Lfoot;
-                bike.Rfoot.enabled = true;
-                bike.Rfoot.target = Rfoot;
-                bike.Lhand.enabled = true;
-                bike.Lhand.target = Lhand;
-
-                riding = true;
-                m_animator.SetBool("riding", true);
-                this.bike = bike;
-
-                GetComponent<Collider>().enabled = false;
+                GetOnBike(c.gameObject.GetComponent<Bike>(), c.transform);
             }
         }
+    }
+
+    void GetOnBike(Bike bike, Transform bikeTransform)
+    {
+        lastGetOnBikeTime = Time.time;
+
+        m_sortingGroup.enabled = false;
+        transform.parent = bikeTransform;
+        transform.localPosition = bike.sitPivot.localPosition;
+
+        bike.Lfoot.enabled = true;
+        bike.Lfoot.target = Lfoot;
+        bike.Rfoot.enabled = true;
+        bike.Rfoot.target = Rfoot;
+        bike.Lhand.enabled = true;
+        bike.Lhand.target = Lhand;
+
+        riding = true;
+        m_animator.SetBool("riding", true);
+        this.bike = bike;
+
+        GetComponent<Collider>().enabled = false;
+    }
+
+    void GetOffBike()
+    {
+        m_sortingGroup.enabled = true;
+        Transform bikeTransform = transform.parent;
+        transform.parent = null;
+        transform.position = bikeTransform.position;
+
+        
+        //bike.Lfoot.target = null;
+        bike.Lfoot.enabled = false;
+        //bike.Rfoot.target = null;
+        bike.Rfoot.enabled = false;
+        //bike.Lhand.target = null;
+        bike.Lhand.enabled = false;
+
+        riding = false;
+        m_animator.SetBool("riding", false);
+        this.bike = null;
+
+        GetComponent<Collider>().enabled = true;
     }
 
 }

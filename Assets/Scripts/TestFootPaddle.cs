@@ -12,5 +12,6 @@ public class TestFootPaddle : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.eulerAngles = Vector3.zero;
-	}
+        //transform.localEulerAngles = Vector3.zero;
+    }
 }
