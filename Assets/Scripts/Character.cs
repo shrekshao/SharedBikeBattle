@@ -32,6 +32,12 @@ public class Character : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (Input.GetKeyUp(KeyCode.Z))
+        {
+            Attack();
+        }
+
         float hacc = Input.GetAxis("Horizontal");
         float vacc = Input.GetAxis("Vertical");
 
@@ -59,7 +65,7 @@ public class Character : MonoBehaviour {
         {
             // riding
 
-            if (Input.GetKeyUp(KeyCode.Z))
+            if (Input.GetKeyUp(KeyCode.X))
             {
                 if (lastGetOnBikeTime + 0.2f < Time.time)
                 {
@@ -84,7 +90,7 @@ public class Character : MonoBehaviour {
     {
         if (c.CompareTag("Bike"))
         {
-            if(Input.GetKeyUp(KeyCode.Z))
+            if(Input.GetKeyUp(KeyCode.X))
             {
                 //Debug.Log("ride bike");
 
@@ -137,4 +143,11 @@ public class Character : MonoBehaviour {
         GetComponent<Collider>().enabled = true;
     }
 
+
+
+    void Attack()
+    {
+        m_animator.SetTrigger("attack");
+        //m_animator.SetInteger("attackStyle", Random.Range(0, 2));
+    }
 }
