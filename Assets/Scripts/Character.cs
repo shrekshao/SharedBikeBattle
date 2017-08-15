@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Character : MonoBehaviour {
 
+    public const float GROUND_Y = 0.1f;
+
+
     Animator m_animator;
     Rigidbody m_rigidBody;
+    BoxCollider m_collider;
     UnityEngine.Rendering.SortingGroup m_sortingGroup;
 
     bool riding = false;
@@ -16,6 +20,8 @@ public class Character : MonoBehaviour {
     public Anima2D.Bone2D Rfoot;
     public Anima2D.Bone2D Lhand;
 
+    public BoxCollider weaponCollider;
+
 
     private float lastGetOnBikeTime = 0f;
 
@@ -24,14 +30,15 @@ public class Character : MonoBehaviour {
     float maxSpeedVertical = 3f;
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         m_animator = GetComponent<Animator>();
         m_rigidBody = GetComponent<Rigidbody>();
+        m_collider = GetComponent<BoxCollider>();
         m_sortingGroup = GetComponent<UnityEngine.Rendering.SortingGroup>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
 
         if (Input.GetKeyUp(KeyCode.Z))
         {
@@ -53,7 +60,7 @@ public class Character : MonoBehaviour {
                 m_animator.SetBool("walking", false);
             }
 
-            transform.position += (3.0f * Vector3.right * hacc + Vector3.forward * vacc) * Time.deltaTime ;
+            transform.position += (3.0f * Vector3.right * hacc + Vector3.forward * vacc) * Time.deltaTime;
 
             if (Mathf.Abs(hacc) > 0.001f)
             {
@@ -71,39 +78,66 @@ public class Character : MonoBehaviour {
                 {
                     GetOffBike();
                 }
-                
+
             }
             else
             {
                 bike.Ride(hacc, vacc * 0.3f);
             }
 
-            
+
         }
 
-        
+
     }
 
 
+    void OnTriggerEnter(Collider c)
+    {
+        //if (c.CompareTag("Weapon"))
+        //{
+        //    Debug.Log("hit");
+        //    m_animator.SetTrigger("FallForward");
+        //    DisableCharacterCollider();
+        //}
+    }
 
     void OnTriggerStay(Collider c)
     {
-        if (c.CompareTag("Bike"))
+        if (!riding && c.CompareTag("Bike"))
         {
-            if(Input.GetKeyUp(KeyCode.X))
+            if (Input.GetKeyUp(KeyCode.X))
             {
                 //Debug.Log("ride bike");
 
                 GetOnBike(c.gameObject.GetComponent<Bike>(), c.transform);
             }
         }
+        else if (c.CompareTag("Weapon") && c.GetComponent<Weapon>().character != gameObject)
+        {
+            Debug.Log("hit");
+            //if (riding)
+            //{
+            //    GetOffBike();
+            //}
+            m_animator.SetTrigger("FallForward");
+            DisableCharacterCollider();
+        }
     }
+
 
     void GetOnBike(Bike bike, Transform bikeTransform)
     {
         lastGetOnBikeTime = Time.time;
 
         m_sortingGroup.enabled = false;
+
+        bikeTransform.localScale = new Vector3(
+            Mathf.Sign(transform.localScale.x),
+            bikeTransform.localScale.y,
+            bikeTransform.localScale.z
+            );
+
         transform.parent = bikeTransform;
         transform.localPosition = bike.sitPivot.localPosition;
 
@@ -118,29 +152,32 @@ public class Character : MonoBehaviour {
         m_animator.SetBool("riding", true);
         this.bike = bike;
 
-        GetComponent<Collider>().enabled = false;
+        //GetComponent<Collider>().enabled = false;
     }
 
     void GetOffBike()
     {
-        m_sortingGroup.enabled = true;
-        Transform bikeTransform = transform.parent;
-        transform.parent = null;
-        transform.position = bikeTransform.position;
+        if (riding)
+        {
+            m_sortingGroup.enabled = true;
+            Transform bikeTransform = transform.parent;
+            transform.parent = null;
+            transform.position = bikeTransform.position;
 
-        
-        //bike.Lfoot.target = null;
-        bike.Lfoot.enabled = false;
-        //bike.Rfoot.target = null;
-        bike.Rfoot.enabled = false;
-        //bike.Lhand.target = null;
-        bike.Lhand.enabled = false;
 
-        riding = false;
-        m_animator.SetBool("riding", false);
-        this.bike = null;
+            //bike.Lfoot.target = null;
+            bike.Lfoot.enabled = false;
+            //bike.Rfoot.target = null;
+            bike.Rfoot.enabled = false;
+            //bike.Lhand.target = null;
+            bike.Lhand.enabled = false;
 
-        GetComponent<Collider>().enabled = true;
+            riding = false;
+            m_animator.SetBool("riding", false);
+            this.bike = null;
+
+            GetComponent<Collider>().enabled = true;
+        }
     }
 
 
@@ -150,4 +187,34 @@ public class Character : MonoBehaviour {
         m_animator.SetTrigger("attack");
         //m_animator.SetInteger("attackStyle", Random.Range(0, 2));
     }
+
+
+    void EnableWeaponCollider()
+    {
+        weaponCollider.enabled = true;
+    }
+
+    void DisableWeaponCollider()
+    {
+        weaponCollider.enabled = false;
+    }
+
+    void EnableCharacterCollider()
+    {
+        m_collider.enabled = true;
+    }
+
+    void DisableCharacterCollider()
+    {
+        m_collider.enabled = false;
+    }
+
+    //void WeaponHitTest()
+    //{
+    //    Collider[] colliders = Physics.OverlapBox(weaponCollider.center, weaponCollider.size / 2);
+    //    foreach (Collider c in colliders)
+    //    {
+    //        if (c.)
+    //    }
+    //}
 }
