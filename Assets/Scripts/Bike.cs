@@ -45,11 +45,15 @@ public class Bike : MonoBehaviour {
     {
         Vector3 bikeVelocity = m_rigidBody.velocity;
 
+        //vacc = Mathf.Clamp(Mathf.Abs(hacc) - 0.05f, 0f, 1f ) * vacc;
+
         bikeVelocity.x += hacc;
         bikeVelocity.z += vacc;
 
         bikeVelocity.x = Mathf.Clamp(bikeVelocity.x, -maxSpeedHorizontal, maxSpeedHorizontal);
-        bikeVelocity.z = Mathf.Clamp(bikeVelocity.z, -maxSpeedVertical, maxSpeedVertical);
+        //bikeVelocity.z = Mathf.Clamp(bikeVelocity.z, -maxSpeedVertical, maxSpeedVertical);
+        float hvClampFactor = Mathf.Clamp(0.2f * ( Mathf.Abs(bikeVelocity.x) - 0.2f), 0f, 1f);
+        bikeVelocity.z = Mathf.Clamp(bikeVelocity.z, -maxSpeedVertical * hvClampFactor, maxSpeedVertical * hvClampFactor);
 
         m_rigidBody.velocity = bikeVelocity;
 
