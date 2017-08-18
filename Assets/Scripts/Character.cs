@@ -15,6 +15,7 @@ public class Character : MonoBehaviour {
     bool riding = false;
 
     Bike bike = null;
+    Bike bikeNearest = null;
 
     public Anima2D.Bone2D Lfoot;
     public Anima2D.Bone2D Rfoot;
@@ -25,9 +26,6 @@ public class Character : MonoBehaviour {
 
     private float lastGetOnBikeTime = 0f;
 
-    // temp for bike
-    float maxSpeedHorizontal = 10f;
-    float maxSpeedVertical = 3f;
 
     // Use this for initialization
     void Start() {
@@ -39,55 +37,7 @@ public class Character : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
-        if (Input.GetKeyUp(KeyCode.Z))
-        {
-            Attack();
-        }
-
-        float hacc = Input.GetAxis("Horizontal");
-        float vacc = Input.GetAxis("Vertical");
-
-        if (!riding)
-        {
-            // walking
-            if (Mathf.Abs(hacc) > 0 || Mathf.Abs(vacc) > 0)
-            {
-                m_animator.SetBool("walking", true);
-            }
-            else
-            {
-                m_animator.SetBool("walking", false);
-            }
-
-            transform.position += (3.0f * Vector3.right * hacc + Vector3.forward * vacc) * Time.deltaTime;
-
-            if (Mathf.Abs(hacc) > 0.001f)
-            {
-                //transform.localScale = new Vector3(Mathf.Sign(bikeVelocity.x), 1f, 1f);
-                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * Mathf.Sign(hacc), transform.localScale.y, transform.localScale.z);
-            }
-        }
-        else
-        {
-            // riding
-
-            if (Input.GetKeyUp(KeyCode.X))
-            {
-                if (lastGetOnBikeTime + 0.2f < Time.time)
-                {
-                    GetOffBike();
-                }
-
-            }
-            else
-            {
-                bike.Ride(hacc, vacc * 0.3f);
-            }
-
-
-        }
-
+        bikeNearest = null;
 
     }
 
@@ -104,14 +54,10 @@ public class Character : MonoBehaviour {
 
     void OnTriggerStay(Collider c)
     {
+        
         if (!riding && c.CompareTag("Bike"))
         {
-            if (Input.GetKeyUp(KeyCode.X))
-            {
-                //Debug.Log("ride bike");
-
-                GetOnBike(c.gameObject.GetComponent<Bike>(), c.transform);
-            }
+            bikeNearest = c.gameObject.GetComponent<Bike>();
         }
         else if (c.CompareTag("Weapon") && c.GetComponent<Weapon>().character != gameObject)
         {
@@ -182,10 +128,68 @@ public class Character : MonoBehaviour {
 
 
 
-    void Attack()
+    public void Attack()
     {
         m_animator.SetTrigger("attack");
         //m_animator.SetInteger("attackStyle", Random.Range(0, 2));
+    }
+
+    public void Move(float hacc, float vacc)
+    {
+        if (!riding)
+        {
+            // walking
+            if (Mathf.Abs(hacc) > 0 || Mathf.Abs(vacc) > 0)
+            {
+                m_animator.SetBool("walking", true);
+            }
+            else
+            {
+                m_animator.SetBool("walking", false);
+            }
+
+            transform.position += (3.0f * Vector3.right * hacc + Vector3.forward * vacc) * Time.deltaTime;
+
+            if (Mathf.Abs(hacc) > 0.001f)
+            {
+                //transform.localScale = new Vector3(Mathf.Sign(bikeVelocity.x), 1f, 1f);
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * Mathf.Sign(hacc), transform.localScale.y, transform.localScale.z);
+            }
+        }
+        else
+        {
+            // riding
+
+            if (Input.GetKeyUp(KeyCode.X))
+            {
+                if (lastGetOnBikeTime + 0.2f < Time.time)
+                {
+                    GetOffBike();
+                }
+
+            }
+            else
+            {
+                bike.Ride(hacc, vacc * 0.3f);
+            }
+
+
+        }
+    }
+
+    public void SwitchRiding()
+    {
+        if (riding)
+        {
+            if (lastGetOnBikeTime + 0.2f < Time.time)
+            {
+                GetOffBike();
+            }
+        }
+        else if (bikeNearest != null)
+        {
+            GetOnBike(bikeNearest, bikeNearest.transform);
+        }
     }
 
 
